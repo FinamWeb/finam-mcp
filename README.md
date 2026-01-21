@@ -1,4 +1,5 @@
 <div align="center">
+<img src="./assets/logo.svg" alt="Logo" width="150" style="display: block; margin: 0 auto;"/>
 
 # Finam MCP Server
 
