@@ -76,7 +76,8 @@ def main(transport: str, host: str, port: int) -> None:
     from src.main import finam_mcp
 
     # Показываем информацию о включённых серверах
-    include_servers = finam_mcp.include_tags
+    from src.config import settings
+    include_servers = settings.INCLUDE_SERVERS
     if include_servers:
         click.echo(
             f"Starting Finam MCP server with enabled modules: {', '.join(include_servers)}",

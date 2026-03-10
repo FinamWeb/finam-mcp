@@ -10,15 +10,18 @@ from src.servers.assets import assets_mcp
 from src.servers.market_data import market_data_mcp
 from src.servers.order import order_mcp
 
-img = Image(path="./assets/logo.svg")
+img = Image(path=settings.PROJECT_PATH / "assets/logo.svg")
 icon = Icon(src=img.to_data_uri())
 
-finam_mcp = FastMCP("FinamMCP", include_tags=settings.INCLUDE_SERVERS, icons=[icon])
+finam_mcp = FastMCP("FinamMCP", icons=[icon])
 
-finam_mcp.mount(account_mcp, prefix="account")
-finam_mcp.mount(market_data_mcp, prefix="market_data")
-finam_mcp.mount(assets_mcp, prefix="assets")
-finam_mcp.mount(order_mcp, prefix="order")
+finam_mcp.mount(account_mcp, namespace="account")
+finam_mcp.mount(market_data_mcp, namespace="market_data")
+finam_mcp.mount(assets_mcp, namespace="assets")
+finam_mcp.mount(order_mcp, namespace="order")
+
+if settings.INCLUDE_SERVERS:
+    finam_mcp.enable(tags=settings.INCLUDE_SERVERS, only=True)
 
 finam_mcp.add_middleware(FinamCredentialsMiddleware())
 finam_mcp.add_middleware(ErrorHandlingMiddleware())

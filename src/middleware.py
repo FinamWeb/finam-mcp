@@ -35,7 +35,7 @@ class FinamCredentialsMiddleware(Middleware):
 
         # Сохраняем клиента в state контекста
         if context.fastmcp_context:
-            context.fastmcp_context.set_state("finam_client", finam_client)
+            await context.fastmcp_context.set_state("finam_client", finam_client, serializable=False)
 
         # Продолжаем выполнение
         return await call_next(context)
